@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+.DS_Store
+
+# Datasets and images are never committed.
+*.png
+*.jpg
+*.jpeg
+*.pgm
+*.ppm
+.ruff_cache/

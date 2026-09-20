@@ -1,0 +1,5 @@
+# No runtime dependencies. src/lowlight is standard library only, including
+# its PGM/PPM reader — see legacy/requirements-1.txt for what the original
+# notebook needed.
+# Development:
+pytest>=8.0
