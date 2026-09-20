@@ -1,27 +1,21 @@
-# cv-image-processing — "+664% luminance" is not a result
+# cv-image-processing
 
 A faithful reproduction of an adaptive five-stage low-light enhancement
-pipeline, and the measurements that show what it actually recovers.
+pipeline, together with the measurements that show what it actually recovers.
 
-**Standard library only — no numpy, no scipy, no Pillow. 188 tests.**
-
-The source coursework (kept in `legacy/task.txt`) reports its headline as
-"luminance improved 664% to 1493%, contrast improved 351% to 871%" and
-concludes that elementary techniques are highly effective. Both percentages are
-arithmetically correct. Neither is evidence, and this repository shows why with
-numbers rather than argument:
+The source coursework (kept in `legacy/task.txt`) reports "luminance improved
+664% to 1493%, contrast improved 351% to 871%" and concludes that elementary
+techniques are highly effective. Both percentages are arithmetically correct,
+and neither is evidence. The project's intention is to show why, with numbers
+instead of argument:
 
 - a **single multiplication** matches the five-stage pipeline on the reported
   luminance metric;
 - the first three stages raise mean luminance by **1465%** while the image's
   entropy stays at **3.945 bits — unchanged to three decimals**;
 - **sharpening pure noise** raises "contrast" by **258%**;
-- measured against the known original, the pipeline lands **further from it**
-  than doing nothing at all — until the noise exceeds a level the source report
-  never identified, after which it wins decisively.
 
-The last point is the interesting one: the pipeline is worth running, and its
-own metrics cannot tell you when.
+**Standard library only — no numpy, no scipy, no Pillow. 188 tests.**
 
 ## Skills demonstrated
 
@@ -141,7 +135,7 @@ That is why stages 1, 2a and 2b show `levels 18, entropy 3.945` three times in
 a row while the reported luminance climbs 1465%. The "+664%" in the original is
 a relabelling of the same eighteen values.
 
-### 3. The level count rises only at the blur — and that is not good news
+### 3. The level count rises only at the blur step
 
 `levels` jumps from 18 to 149 at stage 3. New levels are arithmetically
 possible there, because averaging neighbours produces values between the
@@ -154,7 +148,7 @@ neighbourhood stages. A reviewer who reads "the histogram now uses the full
 dynamic range" as "the image now contains more information" has the causality
 backwards.
 
-### 4. Three metrics, and all three can be gamed — differently
+### 4. Three metrics, and three different ways to game them
 
 | metric | immune to | inflated by |
 |---|---|---|
